@@ -2,13 +2,7 @@
 
 
 import os
-#from __future__ import (absolute_import, division,
-#                        print_function, unicode_literals)
-# отключим предупреждения Anaconda
-#import warnings
-#warnings.simplefilter('ignore')
 #import pandas as pd
-#%pylab inline
 
 
 def open_files():
@@ -46,25 +40,19 @@ def make_pairs(arr):
 
 
 def process_line(l):
-	line1 = change_uv(l)
-	letter_set = 'bcdfgklmnpqrstvwxz'
-	d = {}
-	for letter in letter_set:
-		num = line1.count(letter)
-		d[num] = letter
-	return max(d), d[max(d)]
-
-
-def change_uv(line):
-	line = line.lower()
-	line = line.replace('ngv', 'ngu')
-	line = line.replace('qv', 'qu')
-	line = line.replace('sv', 'su')
-	return line
+    l = l.lower()
+    line1 = l.replace('v', 'u')
+    letter_set = 'bcdfgklmnpqrstvwxz'
+    d = {}
+    for letter in letter_set:
+        num = line1.count(letter)
+        d[num] = letter
+        return max(d), d[max(d)]
 
 
 def main():
-	open_files()
+    open_files()
+    #make_graphics
 
 
 if __name__ == '__main__':
