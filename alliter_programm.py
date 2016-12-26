@@ -2,23 +2,14 @@
 
 
 import os
-#import pandas as pd
-
-
-def open_files():
-	for root, dirs, files in os.walk('./texts'):
-		for fl in files:
-			f_name = './texts/' + fl
-			pairs = read_file(f_name)
-			write_csv(pairs, f_name)
 
 
 def read_file(f_name):
-	fr = open(f_name, 'r', encoding='UTF-8')
-	arr = fr.readlines()
-	pairs = make_pairs(arr)
-	fr.close()
-	return pairs
+    fr = open(f_name, 'r', encoding='UTF-8')
+    arr = fr.readlines()
+    pairs = make_pairs(arr)
+    fr.close()
+    return pairs
 
 
 def write_csv(pairs, name):
@@ -40,11 +31,11 @@ def write_csv(pairs, name):
 
 
 def make_pairs(arr):
-	pairs = []
-	for line in arr:
-		pair = process_line(line)
-		pairs.append(pair)
-	return pairs
+    pairs = []
+    for line in arr:
+        pair = process_line(line)
+        pairs.append(pair)
+    return pairs
 
 
 def process_line(l):
@@ -66,16 +57,14 @@ def roll_mean(num, times):
         expr = ''
     return expr
 
+
 def main():
-    open_files()
-    #make_graphics
+    for root, dirs, files in os.walk('./texts'):
+        for fl in files:
+            f_name = './texts/' + fl
+            pairs = read_file(f_name)
+            write_csv(pairs, f_name)
 
 
 if __name__ == '__main__':
-	main()
-
-
-#df = pd.read_csv(n_name)
-
-#pd.rolling_mean(df, 2)
-
+    main()
