@@ -22,13 +22,21 @@ def read_file(f_name):
 
 
 def write_csv(pairs, name):
-	name = name.lower()
-	n_name = name.replace('txt', 'csv')
-	n_name = n_name.replace('texts', 'tables')
-	f = open(n_name, 'w', encoding='UTF-8')
-	for pair in pairs:
-		f.write(str(pair[0]) + ',' + pair[1] + '\n')
-	f.close()
+    name = name.lower()
+    n_name = name.replace('txt', 'csv')
+    n_name = n_name.replace('texts', 'tables')
+    f = open(n_name, 'w', encoding='UTF-8')
+    f.write('frequency;letter\n')
+    times = (len(pairs)-100) // 5
+    if (len(pairs)-100) % 5 != 0:
+        times += 5
+    num = 2
+    for pair in pairs:
+        exel_expression = roll_mean(num, times)
+        times -= 1
+        num += 5
+        f.write(str(pair[0]) + ';' + pair[1] + ';' + exel_expression + '\n')
+    f.close()
 
 
 def make_pairs(arr):
@@ -49,6 +57,14 @@ def process_line(l):
         d[num] = letter
     return max(d), d[max(d)]
 
+
+def roll_mean(num, times):
+    raw = '=СРЗНАЧ(A%d:A%d)'
+    if times > 0:
+        expr = raw % (num, (num + 100))
+    else:
+        expr = ''
+    return expr
 
 def main():
     open_files()
