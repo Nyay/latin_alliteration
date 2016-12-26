@@ -47,7 +47,7 @@ def process_line(l):
     for letter in letter_set:
         num = line1.count(letter)
         d[num] = letter
-        return max(d), d[max(d)]
+    return max(d), d[max(d)]
 
 
 def main():
